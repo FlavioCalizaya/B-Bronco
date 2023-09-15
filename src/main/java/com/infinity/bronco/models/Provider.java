@@ -1,9 +1,6 @@
 package com.infinity.bronco.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,14 +13,17 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Provider {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(name = "nit_ci", unique = true, length = 12)
     private String nitCi;
 
+    @Column(name = "business_name", length = 40)
     private String businessName;
 
     private String address;
 
-    private Long numberPhone;
+    @Column(name = "phone_number", unique = true, length = 12)
+    private Long phoneNumber;
 }
