@@ -37,7 +37,7 @@ public class ProviderService {
         updateProvider.setNitCi(provider.getNitCi());
         updateProvider.setAddress(provider.getAddress());
         updateProvider.setBusinessName(provider.getBusinessName());
-        updateProvider.setNumberPhone(provider.getNumberPhone());
+        updateProvider.setPhoneNumber(provider.getPhoneNumber());
 
         providerRepository.save(updateProvider);
 
