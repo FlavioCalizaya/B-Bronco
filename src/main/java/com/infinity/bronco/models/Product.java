@@ -17,7 +17,20 @@ import lombok.Setter;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer idProducto;
+    private Integer categoria;
+    private String codigo;
+    private String imagen;
+    private String nombreProducto;
+    private double precioVenta;
+    private Integer estado;
+    private Double alto;
+    private Double ancho;
+    private Double espesor;
+    private String marca;
+    private String tipo;
+    private String Descripcion;
 
-    private String name;
+
+
 }

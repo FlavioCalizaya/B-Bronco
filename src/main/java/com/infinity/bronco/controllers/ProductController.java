@@ -21,12 +21,18 @@ public class ProductController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Optional<Product>> findById(@PathVariable Long productId) {
-        return ResponseEntity.ok(productService.getUserById(productId));
+    public ResponseEntity<Optional<Product>> findById(@PathVariable Integer idProducto) {
+        return ResponseEntity.ok(productService.getProductById( idProducto ));
+    }
+
+    @PutMapping( path = "/{id}")
+    public ResponseEntity<Product> removeProduct( @PathVariable Integer id, @RequestBody Product updatedProduct) {
+        Product updated = productService.removeProduct(id, updatedProduct);
+        return ResponseEntity.ok(updated);
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Product>> getAllUsers() {
+    public ResponseEntity<Iterable<Product>> getAllProducts() {
         return ResponseEntity.ok(productService.getProducts());
     }
 }
