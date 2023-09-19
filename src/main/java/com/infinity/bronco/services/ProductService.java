@@ -28,13 +28,13 @@ public class ProductService {
         }
         return productRepository.save(product);
     }
-    public Product removeProduct(Integer id, Product updatedProduct) {
+    public Product removeProduct(Integer id) {
         Optional<Product> existingProductOptional = productRepository.findById(id);
 
         if (existingProductOptional.isPresent()) {
             Product existingProduct = existingProductOptional.get();
 
-            existingProduct.setEstado(updatedProduct.getEstado());
+            existingProduct.setEstado(0);
 
             return productRepository.save(existingProduct);
         } else {

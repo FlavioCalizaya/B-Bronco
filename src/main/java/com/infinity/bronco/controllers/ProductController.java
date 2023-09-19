@@ -26,8 +26,8 @@ public class ProductController {
     }
 
     @PutMapping( path = "/{id}")
-    public ResponseEntity<Product> removeProduct( @PathVariable Integer id, @RequestBody Product updatedProduct) {
-        Product updated = productService.removeProduct(id, updatedProduct);
+    public ResponseEntity<Product> removeProduct( @PathVariable Integer id) {
+        Product updated = productService.removeProduct(id);
         return ResponseEntity.ok(updated);
     }
 
