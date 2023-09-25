@@ -26,4 +26,6 @@ public class Provider {
 
     @Column(name = "phone_number", unique = true, length = 12)
     private Long phoneNumber;
+
+    private Byte state = 1;
 }
