@@ -11,7 +11,7 @@ import java.util.Optional;
 @AllArgsConstructor
 @RestController
 @RequestMapping("api/v1/providers")
-@CrossOrigin()
+@CrossOrigin(origins = "*")
 public class ProviderController {
 
     private final ProviderService providerService;
@@ -37,7 +37,7 @@ public class ProviderController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<String> deleteProvider(@PathVariable("id") Long id) {
+    public ResponseEntity<Provider> deleteProvider(@PathVariable("id") Long id) {
         return ResponseEntity.ok(providerService.deleteProvider(id));
     }
 }
