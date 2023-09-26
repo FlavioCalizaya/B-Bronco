@@ -3,7 +3,7 @@ package com.infinity.bronco.services;
 import com.infinity.bronco.models.Provider;
 import com.infinity.bronco.repositories.ProviderRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,8 +15,8 @@ public class ProviderService {
 
     private final ProviderRepository providerRepository;
 
-    public Iterable<Provider> getProviders() {
-        return providerRepository.findAll();
+   public Iterable<Provider> getProviders() {
+        return providerRepository.findByState(1);
     }
 
     public Optional<Provider> getProviderById(Long id) {
@@ -44,8 +44,11 @@ public class ProviderService {
         return providerRepository.save(updateProvider);
     }
 
-    public String deleteProvider(Long id) {
-       providerRepository.deleteById(id);
-       return "Provider deleted";
+    public Provider deleteProvider(Long id) {
+        Provider removeProvider = providerRepository.findById(id)
+                .orElseThrow();
+        removeProvider.setState((byte) 0);
+        providerRepository.save(removeProvider);
+        return providerRepository.save(removeProvider);
     }
 }
