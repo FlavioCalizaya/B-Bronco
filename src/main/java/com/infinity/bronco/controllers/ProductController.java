@@ -3,6 +3,7 @@ package com.infinity.bronco.controllers;
 import com.infinity.bronco.models.Product;
 import com.infinity.bronco.services.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
@@ -21,8 +22,13 @@ public class ProductController {
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Optional<Product>> findById(@PathVariable Integer idProducto) {
-        return ResponseEntity.ok(productService.getProductById( idProducto ));
+    public ResponseEntity<Optional<Product>> findById(@PathVariable("id") Integer idProducto) {
+        Optional<Product> product = productService.getProductById(idProducto);
+        if (product.isPresent()) {
+            return ResponseEntity.ok(product);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @PutMapping( path = "/{id}")
