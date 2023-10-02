@@ -1,5 +1,4 @@
 package com.infinity.bronco.controllers;
-
 import com.infinity.bronco.models.Client;
 import com.infinity.bronco.services.ClientService;
 import lombok.AllArgsConstructor;
@@ -11,6 +10,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/v1/Clients")
 @CrossOrigin()
+
 public class ClientController {
 
     private final ClientService clientService;
@@ -24,18 +24,17 @@ public class ClientController {
         return ResponseEntity.ok(clientService.getClientById(clientId));
     }
 
-    @GetMapping
-    public ResponseEntity<Iterable<Client>> getAllClient() {
-        return ResponseEntity.ok(clientService.getClient());
-    }
 
     @PutMapping(path = "/{id}")
     public ResponseEntity<Client> updateClient(@PathVariable("id") Long id, @RequestBody Client client){
         return ResponseEntity.ok(clientService.updateClientsById(id, client));
     }
-
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteClient(@PathVariable("id") Long id) {
         return ResponseEntity.ok(clientService.deleteClient(id));
+    }
+    @GetMapping
+    public ResponseEntity<Iterable<Client>> getAllClient()   {
+        return ResponseEntity.ok(clientService.getClient());
     }
 }

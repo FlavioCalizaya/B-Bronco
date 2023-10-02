@@ -1,6 +1,7 @@
 package com.infinity.bronco.services;
 
 import com.infinity.bronco.models.Client;
+import com.infinity.bronco.models.Product;
 import com.infinity.bronco.repositories.ClientRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,10 +13,14 @@ import java.util.Optional;
 @AllArgsConstructor
 public class ClientService {
 
+
     private final ClientRepository clientRepository;
+
+
     public Iterable<Client> getClient() {
         return clientRepository.findAll();
     }
+
     public Optional<Client> getClientById(Long id) {
         return clientRepository.findById(id);
     }
@@ -32,7 +37,7 @@ public class ClientService {
         updateClient.setNitCi(client.getNitCi());
         updateClient.setBusinessName(client.getBusinessName());
         updateClient.setPhoneNumber(client.getPhoneNumber());
-        updateClient.setEstado(client.getEstado());
+
         clientRepository.save(updateClient);
 
         return clientRepository.save(updateClient);
