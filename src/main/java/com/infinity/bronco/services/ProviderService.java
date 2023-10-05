@@ -5,6 +5,7 @@ import com.infinity.bronco.repositories.ProviderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -37,6 +38,7 @@ public class ProviderService {
         updateProvider.setAddress(provider.getAddress());
         updateProvider.setBusinessName(provider.getBusinessName());
         updateProvider.setPhoneNumber(provider.getPhoneNumber());
+        updateProvider.setUpdatedAt(LocalDateTime.now());
 
         providerRepository.save(updateProvider);
 
