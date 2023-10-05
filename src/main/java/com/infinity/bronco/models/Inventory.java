@@ -5,28 +5,47 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Date;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Purchase {
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_purchase")
-    private Long idPurchase;
+    private Long id;
 
-    private Double total;
+    @Column(nullable = false)
+    private String lot;
 
-    private Date date;
+    @Column(nullable = false)
+    private String price;
+
+    @Column(nullable = false)
+    private Integer stock;
 
     private Byte state = 1;
 
-    @JoinColumn(name = "id_provider", referencedColumnName = "id_provider")
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", insertable = false)
+    private LocalDateTime  updatedAt;
+
+    @JoinColumn(name = "id_product", referencedColumnName = "id")
     @ManyToOne
-    private Provider provider;
+    private Product product;
+
+    @OneToOne(mappedBy = "inventory")
+    private PurchaseDetail purchaseDetails;
 
 }
