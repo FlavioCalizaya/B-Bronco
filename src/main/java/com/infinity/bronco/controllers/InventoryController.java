@@ -1,7 +1,7 @@
 package com.infinity.bronco.controllers;
 
-import com.infinity.bronco.models.Purchase;
-import com.infinity.bronco.services.PurchaseService;
+import com.infinity.bronco.models.Inventory;
+import com.infinity.bronco.services.InventoryService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,34 +10,35 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/v1/purchase")
+@RequestMapping("api/v1/Inventory")
 @CrossOrigin(origins = "*")
-public class PurchaseController {
+public class InventoryController {
 
-    private final PurchaseService purchaseService;
+    private final InventoryService inventoryService;
 
     @PostMapping
-    public ResponseEntity<Purchase> createPurchase(@RequestBody Purchase purchase) {
-        return ResponseEntity.ok(purchaseService.savePurchase(purchase));
+    public ResponseEntity<Inventory> createInventory(@RequestBody Inventory inventory) {
+
+        return ResponseEntity.ok( inventoryService.saveInventory(inventory));
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Optional<Purchase>> findById(@PathVariable("id") Long purchaseId) {
-        return ResponseEntity.ok(purchaseService.getPurchaseById(purchaseId));
+    public ResponseEntity<Optional<Inventory>> findById(@PathVariable("id") Long inventoryId) {
+        return ResponseEntity.ok(inventoryService.getInventoryById(inventoryId));
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Purchase>> getAllPurchases() {
-        return ResponseEntity.ok(purchaseService.getPurchases());
+    public ResponseEntity<Iterable<Inventory>> getAllInventories() {
+        return ResponseEntity.ok(inventoryService.getInventories());
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<Purchase> updatePurchase(@PathVariable("id") Long id, @RequestBody Purchase purchase){
-        return ResponseEntity.ok(purchaseService.updatePurchaseById(id, purchase));
+    public ResponseEntity<Inventory> updateInventory(@PathVariable("id") Long id, @RequestBody Inventory inventory){
+        return ResponseEntity.ok(inventoryService.updateInventoryById(id, inventory));
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<Purchase> deletePurchase(@PathVariable("id") Long id) {
-        return ResponseEntity.ok(purchaseService.deletePurchase(id));
+    public ResponseEntity<Inventory> deleteInventory(@PathVariable("id") Long id) {
+        return ResponseEntity.ok(inventoryService.deleteInventory(id));
     }
 }
