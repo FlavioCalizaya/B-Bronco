@@ -5,30 +5,50 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Embeddable
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 public class PurchaseDetail {
 
-    private Double price;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-    private Integer quantity;
+    @ManyToOne
+    @JoinColumn(name = "id_product", referencedColumnName = "id")
+    private Product product;
 
-    private Double amount;
-
-    @JoinColumn(name = "id_purchase", referencedColumnName = "id_purchase")
+    @JoinColumn(name = "id_purchase", referencedColumnName = "id")
     @ManyToOne
     private Purchase purchase;
 
-    @JoinColumn(name = "id_product", referencedColumnName = "id_product")
-    @ManyToOne
-    private Product product;
+    @Column(nullable = false)
+    private Double price;
 
-    @JoinColumn(name = "id_inventory", referencedColumnName = "id_inventory")
-    @ManyToOne
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false)
+    private Double amount;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", insertable = false)
+    private LocalDateTime  updatedAt;
+
+    @JoinColumn(name = "id_inventory", referencedColumnName = "id")
+    @OneToOne
     private Inventory inventory;
 
 }
