@@ -5,6 +5,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -13,13 +18,13 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Provider {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nit_ci", unique = true, length = 12)
+    @Column(name = "nit_ci", unique = true, length = 12, nullable = false)
     private String nitCi;
 
-    @Column(name = "business_name", length = 40)
+    @Column(name = "business_name", length = 40, nullable = false)
     private String businessName;
 
     private String address;
@@ -28,4 +33,12 @@ public class Provider {
     private Long phoneNumber;
 
     private Byte state = 1;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", insertable = false)
+    private LocalDateTime  updatedAt;
 }
