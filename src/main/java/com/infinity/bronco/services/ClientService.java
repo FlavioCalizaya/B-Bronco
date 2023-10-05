@@ -16,7 +16,6 @@ public class ClientService {
 
     private final ClientRepository clientRepository;
 
-
     public Iterable<Client> getClient() {
         return clientRepository.findAll();
     }
