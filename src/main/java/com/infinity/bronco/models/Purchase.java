@@ -5,27 +5,46 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Provider {
+public class Purchase {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nit_ci", unique = true, length = 12)
-    private String nitCi;
+    @Column(nullable = false)
+    private Double total;
 
-    @Column(name = "business_name", length = 40)
-    private String businessName;
-
-    private String address;
-
-    @Column(name = "phone_number", unique = true, length = 12)
-    private Long phoneNumber;
+    @Column(nullable = false)
+    private Date date;
 
     private Byte state = 1;
+
+    @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at", insertable = false)
+    private LocalDateTime  updatedAt;
+
+    @JoinColumn(name = "id_provider", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
+    private Provider provider;
+
+    @OneToMany(mappedBy = "purchase", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<PurchaseDetail> purchaseDetails = new HashSet<>();
+
 }
