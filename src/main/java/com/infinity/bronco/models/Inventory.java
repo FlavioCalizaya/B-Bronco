@@ -45,7 +45,7 @@ public class Inventory {
     @ManyToOne
     private Product product;
 
-    @OneToOne(mappedBy = "inventory")
+    @OneToOne(mappedBy = "inventory", cascade = CascadeType.ALL)
     private PurchaseDetail purchaseDetails;
 
 }

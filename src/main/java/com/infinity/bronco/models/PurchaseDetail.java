@@ -27,7 +27,7 @@ public class PurchaseDetail {
     private Product product;
 
     @JoinColumn(name = "id_purchase", referencedColumnName = "id")
-    @ManyToOne
+    @ManyToOne(optional = false,fetch = FetchType.EAGER)
     private Purchase purchase;
 
     @Column(nullable = false)
