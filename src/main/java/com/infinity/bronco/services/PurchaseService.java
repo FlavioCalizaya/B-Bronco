@@ -4,6 +4,7 @@ import com.infinity.bronco.models.Purchase;
 import com.infinity.bronco.repositories.PurchaseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class PurchaseService {
         return purchaseRepository.findById(id);
     }
 
+    @Transactional
     public Purchase savePurchase(Purchase purchase) {
         if (purchaseRepository.existsById(purchase.getId())) {
             purchase.setId(null);

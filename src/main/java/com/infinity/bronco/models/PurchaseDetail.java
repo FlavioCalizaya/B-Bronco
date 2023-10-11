@@ -27,7 +27,7 @@ public class PurchaseDetail {
     private Product product;
 
     @JoinColumn(name = "id_purchase", referencedColumnName = "id")
-    @ManyToOne(optional = false,fetch = FetchType.EAGER)
+    @ManyToOne(optional = false,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Purchase purchase;
 
     @Column(nullable = false)
@@ -48,7 +48,7 @@ public class PurchaseDetail {
     private LocalDateTime  updatedAt;
 
     @JoinColumn(name = "id_inventory", referencedColumnName = "id")
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private Inventory inventory;
 
 }

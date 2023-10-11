@@ -4,6 +4,7 @@ import com.infinity.bronco.models.Purchase;
 import com.infinity.bronco.services.PurchaseService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -16,6 +17,7 @@ public class PurchaseController {
 
     private final PurchaseService purchaseService;
 
+    @Transactional
     @PostMapping
     public ResponseEntity<Purchase> createPurchase(@RequestBody Purchase purchase) {
         System.out.println(purchase);

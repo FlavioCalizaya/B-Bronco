@@ -1,7 +1,6 @@
 package com.infinity.bronco.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +45,8 @@ public class Provider {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    @OneToMany(mappedBy = "provider", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(referencedColumnName = "id")
+    //@JsonBackReference
     private Set<Purchase> purchases = new HashSet<>();
 }
