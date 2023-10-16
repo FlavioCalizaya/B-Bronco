@@ -2,14 +2,13 @@ package com.infinity.bronco.controllers;
 
 import com.infinity.bronco.models.Product;
 import com.infinity.bronco.models.Sale;
+import com.infinity.bronco.models.dto.SaleDTO;
 import com.infinity.bronco.services.SaleService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Component
 @RestController
@@ -22,5 +21,12 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<Iterable<Sale>> getAllSales() {
         return ResponseEntity.ok(saleService.getSales());
+    }
+
+    @PostMapping("/nueva")
+    public ResponseEntity<Sale> crearVentaConDetalles(@RequestBody SaleDTO ventaDTO) {
+       Sale sale =  saleService.saveSale(ventaDTO);
+        return ResponseEntity.ok( sale );
+
     }
 }

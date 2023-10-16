@@ -3,21 +3,27 @@ package com.infinity.bronco.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "venta")
+@Table(name = "Venta")
 public class Sale {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long idVenta;
+    private Integer idVenta;
 
     @Column(name = "total", precision = 9, scale = 2)
     private BigDecimal total;
@@ -32,7 +38,8 @@ public class Sale {
     @Column(name = "nro_correlativo")
     private Integer nroCorrelativo;
 
+
     @OneToMany(mappedBy="sale")
-    private Set<SaleDetail> saleDetails;
+    private List<SaleDetail> saleDetails;
 
 }

@@ -1,19 +1,20 @@
 package com.infinity.bronco.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.Set;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "Producto")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,6 +32,10 @@ public class Product {
     private String tipo;
     private String Descripcion;
 
+
+    @OneToMany(mappedBy="product")
+    @JsonIgnore
+    private Set<SaleDetail> saleDetails;
 
 
 }
