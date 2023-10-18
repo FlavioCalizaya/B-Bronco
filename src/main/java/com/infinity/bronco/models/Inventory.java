@@ -1,5 +1,6 @@
 package com.infinity.bronco.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -31,6 +33,9 @@ public class Inventory {
     @Column(nullable = false)
     private Integer stock;
 
+    @Column(nullable = false)
+    private Date date;
+
     private Byte state = 1;
 
     @CreationTimestamp
@@ -41,11 +46,12 @@ public class Inventory {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    @JoinColumn(name = "id_product", referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "id")
     @ManyToOne
     private Product product;
 
-    @OneToOne(mappedBy = "inventory", cascade = CascadeType.ALL)
+    @JsonIgnore
+    @OneToOne(mappedBy = "inventory")
     private PurchaseDetail purchaseDetails;
 
 }
