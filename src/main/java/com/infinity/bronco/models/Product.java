@@ -1,6 +1,5 @@
 package com.infinity.bronco.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -16,14 +14,28 @@ import java.util.Set;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "Producto")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer idProducto;
+    private Integer categoria;
+    private String codigo;
+    private String imagen;
+    private String nombreProducto;
+    private double precioVenta;
+    private Integer estado;
+    private Double alto;
+    private Double ancho;
+    private Double espesor;
+    private String marca;
+    private String tipo;
+    private String Descripcion;
 
-    private String name;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy="product")
     @JsonIgnore
-    private Set<PurchaseDetail> purchaseDetails = new HashSet<>();
+    private Set<SaleDetail> saleDetails;
+
+
 }
