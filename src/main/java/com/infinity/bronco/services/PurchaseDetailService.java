@@ -31,7 +31,7 @@ public class PurchaseDetailService {
     @Transactional
     public PurchaseDetail savePurchaseDetail(PurchaseDetail purchaseDetail) {
 
-       Purchase purchase = purchaseDetail.getPurchase();
+       //Purchase purchase = purchaseDetail.getPurchase();
        Product productList= purchaseDetail.getProduct();
        Inventory inventory = purchaseDetail.getInventory();
 
@@ -40,7 +40,7 @@ public class PurchaseDetailService {
        purchasePersist.setQuantity(purchaseDetail.getQuantity());
        purchasePersist.setAmount(purchaseDetail.getAmount());
        purchasePersist.setInventory(inventory);
-       purchasePersist.setPurchase(purchase);
+       //purchasePersist.setPurchase(purchase);
        purchasePersist.setProduct(productList);
 
         System.out.println("Estoy aqui>"+ productList);
