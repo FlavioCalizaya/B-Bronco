@@ -1,5 +1,7 @@
 package com.infinity.bronco.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,14 +24,6 @@ public class PurchaseDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "id_product", referencedColumnName = "id")
-    private Product product;
-
-    @JoinColumn(name = "id_purchase", referencedColumnName = "id")
-    @ManyToOne(optional = false,fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Purchase purchase;
-
     @Column(nullable = false)
     private Double price;
 
@@ -47,8 +41,17 @@ public class PurchaseDetail {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    @JoinColumn(name = "id_inventory", referencedColumnName = "id")
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id",referencedColumnName = "id")
+    private Product product;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn( name = "inventory_id", referencedColumnName = "id")
     private Inventory inventory;
+
+    @JsonIgnore
+    @JoinColumn(name = "purchase_id",referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Purchase purchase;
 
 }
