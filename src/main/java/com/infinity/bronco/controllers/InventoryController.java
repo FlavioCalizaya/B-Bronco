@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("api/v1/Inventory")
+@RequestMapping("api/v1/inventory")
 @CrossOrigin(origins = "*")
 public class InventoryController {
 
