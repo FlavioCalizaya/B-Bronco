@@ -15,7 +15,7 @@ public class InventoryService {
     private final InventoryRepository inventoryRepository;
 
    public Iterable<Inventory> getInventories() {
-        return inventoryRepository.findAll();
+        return inventoryRepository.findByState(1);
     }
 
     public Optional<Inventory> getInventoryById(Long id) {
