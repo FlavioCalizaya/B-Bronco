@@ -33,6 +33,8 @@ public class PurchaseDetail {
     @Column(nullable = false)
     private Double amount;
 
+    private Byte state = 1;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
@@ -42,7 +44,7 @@ public class PurchaseDetail {
     private LocalDateTime  updatedAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "product_id",referencedColumnName = "id")
+    @JoinColumn(name = "product_id",referencedColumnName = "idProducto")
     private Product product;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
