@@ -28,7 +28,7 @@ public class Inventory {
     private String lot;
 
     @Column(nullable = false)
-    private String price;
+    private Double price;
 
     @Column(nullable = false)
     private Integer stock;
@@ -46,12 +46,12 @@ public class Inventory {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    @JoinColumn(referencedColumnName = "id")
+    @JoinColumn(referencedColumnName = "idProducto")
     @ManyToOne
     private Product product;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "inventory")
+    @OneToOne(mappedBy = "inventory", cascade = CascadeType.ALL)
     private PurchaseDetail purchaseDetails;
 
 }
