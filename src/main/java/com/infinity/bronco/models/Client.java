@@ -1,10 +1,12 @@
 package com.infinity.bronco.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,4 +29,8 @@ public class Client {
 
     @Column(name = "estado", unique = true, length = 12)
     private Long estado;
+
+    @OneToMany(mappedBy = "client")
+    @JsonIgnore
+    private List<Servicey> service;
 }
