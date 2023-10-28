@@ -12,4 +12,5 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findByEstado(int estado);
+    List<Product> findByNombreProductoContaining(String productName);
 }
