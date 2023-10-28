@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -52,4 +54,13 @@ public class ProductController {
     public ResponseEntity<Iterable<Product>> getAllProducts() {
         return ResponseEntity.ok(productService.getProducts());
     }
+
+    @GetMapping("/names/{productName}")
+    public ResponseEntity<List<Product>> searchProductByName(@PathVariable String productName) {
+
+        List<Product> products = productService.searchProductByName(productName);
+        return ResponseEntity.ok(products);
+    }
+
+
 }

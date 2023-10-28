@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -97,5 +98,10 @@ public class ProductService {
         } else {
             throw new EntityNotFoundException("Product not found with id: " + id);
         }
+    }
+    public List<Product> searchProductByName(String productName) {
+
+        // Utiliza el repository para buscar por nombre
+        return productRepository.findByNombreProductoContaining(productName);
     }
 }
