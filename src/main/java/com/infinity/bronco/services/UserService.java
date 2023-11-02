@@ -5,6 +5,9 @@ import jakarta.persistence.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.mindrot.jbcrypt.BCrypt; // Importa BCrypt
+
+// ...
 
 
 import java.util.Optional;
@@ -14,6 +17,9 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+
+
 
     @Value("${app.upload.dir}")
     private String uploadDir;
@@ -34,7 +40,12 @@ public class UserService {
 
         if (userRepository.existsById(user.getIdUser())) {
             user.setIdUser(null);
+
         }
+        String hashedPassword = BCrypt.hashpw(user.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPassword);
+
+
         return userRepository.save(user);
     }
 
