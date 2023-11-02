@@ -1,8 +1,6 @@
 package com.infinity.bronco.models;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,33 +8,33 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
+import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Provider {
+public class Inventory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nit_ci", unique = true, length = 12, nullable = false)
-    private String nitCi;
+    @Column(nullable = false)
+    private String lot;
 
-    @Column(name = "business_name", length = 40, nullable = false)
-    private String businessName;
+    @Column(nullable = false)
+    private Double price;
 
-    private String address;
+    @Column(nullable = false)
+    private Integer stock;
 
-    @Column(name = "phone_number", unique = true, length = 12)
-    private Long phoneNumber;
+    @Column(nullable = false)
+    private Date date;
 
     private Byte state = 1;
 
@@ -48,9 +46,12 @@ public class Provider {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    /*
-    @JsonBackReference
-    @OneToMany(mappedBy = "provider")
-    private Set<Purchase> purchases = new HashSet<>();
-     */
+    @JoinColumn(referencedColumnName = "idProducto")
+    @ManyToOne
+    private Product product;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "inventory", cascade = CascadeType.ALL)
+    private PurchaseDetail purchaseDetails;
+
 }

@@ -10,33 +10,26 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Provider {
+public class Purchase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nit_ci", unique = true, length = 12, nullable = false)
-    private String nitCi;
+    @Column(nullable = false)
+    private Double total;
 
-    @Column(name = "business_name", length = 40, nullable = false)
-    private String businessName;
-
-    private String address;
-
-    @Column(name = "phone_number", unique = true, length = 12)
-    private Long phoneNumber;
+    @Column(nullable = false)
+    private Date date;
 
     private Byte state = 1;
 
@@ -48,9 +41,15 @@ public class Provider {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    /*
-    @JsonBackReference
-    @OneToMany(mappedBy = "provider")
-    private Set<Purchase> purchases = new HashSet<>();
-     */
+    //@JsonManagedReference
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "provider_id", referencedColumnName = "id")
+    private Provider provider;
+
+    //@JsonManagedReference
+    //@JsonBackReference
+    @OneToMany( fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "purchase_id", referencedColumnName = "id")
+    private Set<PurchaseDetail> purchaseDetails = new HashSet<>();
+
 }

@@ -2,7 +2,6 @@ package com.infinity.bronco.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,33 +9,29 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import org.springframework.web.bind.annotation.PathVariable;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
-
 
 @Getter
 @Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Provider {
+public class PurchaseDetail {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
-    @Column(name = "nit_ci", unique = true, length = 12, nullable = false)
-    private String nitCi;
+    @Column(nullable = false)
+    private Double price;
 
-    @Column(name = "business_name", length = 40, nullable = false)
-    private String businessName;
+    @Column(nullable = false)
+    private Integer quantity;
 
-    private String address;
-
-    @Column(name = "phone_number", unique = true, length = 12)
-    private Long phoneNumber;
+    @Column(nullable = false)
+    private Double amount;
 
     private Byte state = 1;
 
@@ -48,9 +43,17 @@ public class Provider {
     @Column(name = "updated_at", insertable = false)
     private LocalDateTime  updatedAt;
 
-    /*
-    @JsonBackReference
-    @OneToMany(mappedBy = "provider")
-    private Set<Purchase> purchases = new HashSet<>();
-     */
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id",referencedColumnName = "idProducto")
+    private Product product;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn( name = "inventory_id", referencedColumnName = "id")
+    private Inventory inventory;
+
+    @JsonIgnore
+    @JoinColumn(name = "purchase_id",referencedColumnName = "id")
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
+    private Purchase purchase;
+
 }
