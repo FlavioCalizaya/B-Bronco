@@ -13,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -53,5 +54,9 @@ public class Inventory {
     @JsonIgnore
     @OneToOne(mappedBy = "inventory", cascade = CascadeType.ALL)
     private PurchaseDetail purchaseDetails;
+
+    @OneToMany(mappedBy="inventory")
+    @JsonIgnore
+    private Set<SaleDetail> saleDetails;
 
 }
