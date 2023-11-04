@@ -15,6 +15,7 @@ public class SaleDetailDTO {
     private Integer cantidad;
     private BigDecimal importe;
     private  Integer idProducto;
+    private  Long idInventario;
     private  Integer idVenta;
 
 
