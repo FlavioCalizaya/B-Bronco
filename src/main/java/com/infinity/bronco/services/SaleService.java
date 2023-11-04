@@ -1,13 +1,16 @@
 package com.infinity.bronco.services;
 
+import com.infinity.bronco.models.Inventory;
 import com.infinity.bronco.models.Product;
 import com.infinity.bronco.models.Sale;
 import com.infinity.bronco.models.SaleDetail;
 import com.infinity.bronco.models.dto.SaleDTO;
 import com.infinity.bronco.models.dto.SaleDetailDTO;
+import com.infinity.bronco.repositories.InventoryRepository;
 import com.infinity.bronco.repositories.ProductRepository;
 import com.infinity.bronco.repositories.SaleDetailRepository;
 import com.infinity.bronco.repositories.SaleRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +27,7 @@ public class SaleService {
     private SaleRepository ventaRepository;
     private SaleDetailRepository saleDetailRepository;
     private ProductRepository productRepository;
+    private InventoryRepository inventoryRepository;
     public Iterable<Sale> getSales() {
         return saleRepository.findByEstado(1);
     }
@@ -41,6 +45,7 @@ public class SaleService {
         // Itera sobre los detalles y guarda cada uno
         for (SaleDetailDTO elementDetail : saleDetails) {
             Product product = productRepository.findById(elementDetail.getIdProducto()).orElse(null);
+            Inventory inventory = inventoryRepository.findById(elementDetail.getIdInventario() ).orElse(null);
 
             if (product != null) {
                 // Crear un nuevo SaleDetail
@@ -57,7 +62,7 @@ public class SaleService {
                 saleDetail.setPrecio(elementDetail.getPrecio());
                 saleDetail.setCantidad(elementDetail.getCantidad());
                 saleDetail.setImporte(elementDetail.getImporte());
-
+                saleDetail.setInventory( inventory );
                 // Guarda el detalle de venta
                  SaleDetail newSaleDetail =  saleDetailRepository.save(saleDetail);
                 savedSaleDetail.add( newSaleDetail );
@@ -66,7 +71,21 @@ public class SaleService {
         savedSale.setSaleDetails( savedSaleDetail );
         return savedSale;
     }
+    public Sale removeSale(Integer id) {
+        Optional<Sale> existingProductOptional = saleRepository.findById(id);
 
+        if (existingProductOptional.isPresent()) {
+            Sale existingSale = existingProductOptional.get();
+
+            int intValue = 0;
+            Byte byteValue = (byte) intValue;
+            existingSale.setEstado(byteValue);
+
+            return saleRepository.save(existingSale);
+        } else {
+            throw new EntityNotFoundException("Sale not found with id: " + id);
+        }
+    }
 
 
 }
