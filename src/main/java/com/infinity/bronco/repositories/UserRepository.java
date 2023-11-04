@@ -12,4 +12,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findByEstado(int estado);
+
+    User findByNameUserAndEstado(String nameUser, int estado);
+    User findByPassword (String password);
 }

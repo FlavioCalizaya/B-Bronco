@@ -52,4 +52,9 @@ public class UserController {
     public ResponseEntity<Iterable<User>> getAllUser() {
         return ResponseEntity.ok(userService.getUser());
     }
+
+    @PostMapping(path = "/login")
+    public ResponseEntity<Object> getLogin(@RequestBody User user) {
+        return ResponseEntity.ok(userService.userLogin(user));
+    }
 }
