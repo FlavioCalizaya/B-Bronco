@@ -1,15 +1,9 @@
 package com.infinity.bronco.services;
 
-import com.infinity.bronco.models.Inventory;
-import com.infinity.bronco.models.Product;
-import com.infinity.bronco.models.Sale;
-import com.infinity.bronco.models.SaleDetail;
+import com.infinity.bronco.models.*;
 import com.infinity.bronco.models.dto.SaleDTO;
 import com.infinity.bronco.models.dto.SaleDetailDTO;
-import com.infinity.bronco.repositories.InventoryRepository;
-import com.infinity.bronco.repositories.ProductRepository;
-import com.infinity.bronco.repositories.SaleDetailRepository;
-import com.infinity.bronco.repositories.SaleRepository;
+import com.infinity.bronco.repositories.*;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +22,7 @@ public class SaleService {
     private SaleDetailRepository saleDetailRepository;
     private ProductRepository productRepository;
     private InventoryRepository inventoryRepository;
+    private ClientRepository clientRepository;
     public Iterable<Sale> getSales() {
         return saleRepository.findByEstado(1);
     }
@@ -37,6 +32,9 @@ public class SaleService {
     public Sale saveSale(SaleDTO ventaDTO) {
         Sale sale = ventaDTO.getSale();
         List<SaleDetailDTO> saleDetails = ventaDTO.getSaleDetails();
+
+
+
 
         // Guarda la venta y obtiene su id
         Sale savedSale = ventaRepository.save(sale);
