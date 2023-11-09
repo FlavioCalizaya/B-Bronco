@@ -90,7 +90,7 @@ public class UserService {
         boolean res = BCrypt.checkpw(user.getPassword(),findUser.getPassword());
 
         if (res) {
-            return ResponseHandler.generateResponse( HttpStatus.OK, "Login exitoso:",findUser.getNameUser());
+            return ResponseHandler.generateResponse( HttpStatus.OK, "Login exitoso:", new User(findUser.getNameUser(), findUser.getRol()) );
         }else {
             System.out.println("El Password es Incorrecto");
             return ResponseHandler.generateResponse( HttpStatus.NOT_FOUND, "El Password no existe: " + user.getPassword(), null);
