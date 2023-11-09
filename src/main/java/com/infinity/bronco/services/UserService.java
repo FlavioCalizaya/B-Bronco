@@ -1,14 +1,13 @@
 package com.infinity.bronco.services;
+
 import com.infinity.bronco.models.User;
 import com.infinity.bronco.repositories.UserRepository;
+import com.infinity.bronco.response.ResponseHandler;
 import jakarta.persistence.EntityNotFoundException;
-
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.mindrot.jbcrypt.BCrypt; // Importa BCrypt
-
-// ...
-
 
 import java.util.Optional;
 
@@ -17,9 +16,6 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-
-
-
 
     @Value("${app.upload.dir}")
     private String uploadDir;
@@ -76,11 +72,28 @@ public class UserService {
             userToUpdate.setRol(updatedUser.getRol());
 
             userToUpdate.setNameUser(updatedUser.getNameUser());
-            userToUpdate.setPassword(updatedUser.getPassword());
+            String hashedPassword = BCrypt.hashpw(updatedUser.getPassword(), BCrypt.gensalt());
+            userToUpdate.setPassword(hashedPassword);
 
             return userRepository.save(userToUpdate);
         } else {
             throw new EntityNotFoundException("user not found with id: " + id);
+        }
+    }
+
+    public Object userLogin(User user){
+        User findUser = userRepository.findByNameUserAndEstado(user.getNameUser(), 1);
+        if (findUser == null){
+            System.out.println("El Nombre de Usuario es Incorrecto");
+            return ResponseHandler.generateResponse( HttpStatus.NOT_FOUND, "El usuario no existe: " + user.getNameUser(),null);
+        }
+        boolean res = BCrypt.checkpw(user.getPassword(),findUser.getPassword());
+
+        if (res) {
+            return ResponseHandler.generateResponse( HttpStatus.OK, "Login exitoso:", new User(findUser.getNameUser(), findUser.getRol()) );
+        }else {
+            System.out.println("El Password es Incorrecto");
+            return ResponseHandler.generateResponse( HttpStatus.NOT_FOUND, "El Password no existe: " + user.getPassword(), null);
         }
     }
 }
