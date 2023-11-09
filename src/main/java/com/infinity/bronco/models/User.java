@@ -36,4 +36,9 @@ public class User {
     @Column(unique = true, nullable = false)
     private String password;
 
+    public User(String nameUser, String rol) {
+
+        this.nameUser = nameUser;
+        this.rol = rol;
+    }
 }
