@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -33,4 +34,8 @@ public class Client {
     @OneToMany(mappedBy = "client")
     @JsonIgnore
     private List<Servicey> service;
+
+    @OneToMany(mappedBy="client")
+    @JsonIgnore
+    private List<Sale> sales;
 }
