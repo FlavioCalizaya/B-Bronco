@@ -61,6 +61,15 @@ public class SaleService {
                 saleDetail.setCantidad(elementDetail.getCantidad());
                 saleDetail.setImporte(elementDetail.getImporte());
                 saleDetail.setInventory( inventory );
+
+
+                int soldQuantity = elementDetail.getCantidad();
+                int currentStock = inventory.getStock();
+                inventory.setStock(currentStock - soldQuantity);
+
+
+                inventoryRepository.save(inventory);
+
                 // Guarda el detalle de venta
                  SaleDetail newSaleDetail =  saleDetailRepository.save(saleDetail);
                 savedSaleDetail.add( newSaleDetail );
@@ -70,20 +79,40 @@ public class SaleService {
         return savedSale;
     }
     public Sale removeSale(Integer id) {
-        Optional<Sale> existingProductOptional = saleRepository.findById(id);
+        Optional<Sale> existingSaleOptional = saleRepository.findById(id);
 
-        if (existingProductOptional.isPresent()) {
-            Sale existingSale = existingProductOptional.get();
+        if (existingSaleOptional.isPresent()) {
+            Sale existingSale = existingSaleOptional.get();
 
-            int intValue = 0;
-            Byte byteValue = (byte) intValue;
-            existingSale.setEstado(byteValue);
+            // Check if the sale is already removed
+            if (existingSale.getEstado() == 0) {
+                throw new EntityNotFoundException("Sale is already removed with id: " + id);
+            }
+
+            // Iterate through the SaleDetails associated with the sale
+            for (SaleDetail saleDetail : existingSale.getSaleDetails()) {
+                Inventory inventory = saleDetail.getInventory();
+
+                if (inventory != null) {
+                    // Increase the stock of the associated Inventory
+                    int soldQuantity = saleDetail.getCantidad();
+                    int currentStock = inventory.getStock();
+                    inventory.setStock(currentStock + soldQuantity);
+
+                    // Save the updated Inventory
+                    inventoryRepository.save(inventory);
+                }
+            }
+
+            // Set the sale as removed
+            existingSale.setEstado((byte) 0);
 
             return saleRepository.save(existingSale);
         } else {
             throw new EntityNotFoundException("Sale not found with id: " + id);
         }
     }
+
 
 
 }
