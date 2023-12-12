@@ -42,9 +42,9 @@ public class ServiceController {
         return ResponseEntity.ok(serviceService.deleteServicey(id));
     }
 
-    @GetMapping(path = "/user/{idUser}")
-    public ResponseEntity<Iterable<Servicey>> getAllServiceMant(@PathVariable("idUser") Integer idUser)   {
-        return ResponseEntity.ok(serviceService.getServiceMant(idUser));
+    @GetMapping(path = "/assing/{id}")
+    public ResponseEntity<Iterable<Servicey>> getAllServiceMant(@PathVariable("id") Integer id)   {
+        return ResponseEntity.ok(serviceService.getAllServiceMant(id));
     }
 
 

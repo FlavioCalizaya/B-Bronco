@@ -1,9 +1,12 @@
 package com.infinity.bronco.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -41,4 +44,14 @@ public class User {
         this.nameUser = nameUser;
         this.rol = rol;
     }
+
+    @OneToMany(mappedBy = "assignedMaintenanceUser")
+    @JsonIgnore
+    private List<Servicey> services;
+
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    private List<Servicey> service;
+
 }
