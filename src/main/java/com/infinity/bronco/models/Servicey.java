@@ -25,15 +25,15 @@ public class Servicey {
 
     private Double amount;
 
-    private Integer idUser;
+    //private Integer idUser;
 
     private Integer estado;
 
     private Date dateInit;
 
-    private Integer idAssignedMaintenanceUser;
+    //private Integer idAssignedMaintenanceUser;
 
-    private Boolean statusMaintenance;
+    private String statusMaintenance;
 
     private Date dateEnd;
 
@@ -41,4 +41,12 @@ public class Servicey {
     @JoinColumn(name = "id_client")
     private Client client;
 
+    @ManyToOne
+    @JoinColumn(name = "id_assigned_maintenance_user")
+    private User assignedMaintenanceUser;
+
+
+    @ManyToOne
+    @JoinColumn(name = "id_user")
+    private User user;
 }
