@@ -33,9 +33,6 @@ public class SaleService {
         Sale sale = ventaDTO.getSale();
         List<SaleDetailDTO> saleDetails = ventaDTO.getSaleDetails();
 
-
-
-
         // Guarda la venta y obtiene su id
         Sale savedSale = ventaRepository.save(sale);
 
@@ -49,12 +46,12 @@ public class SaleService {
                 // Crear un nuevo SaleDetail
                 SaleDetail saleDetail = new SaleDetail();
 
-                if ( saleDetailRepository.existsById( elementDetail.getIdDetalleVenta() )  ) {
-                    saleDetail.setIdDetalleVenta(null);
-                } else {
-                    saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
-                }
-                saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
+                // if ( saleDetailRepository.existsById( elementDetail.getIdDetalleVenta() )  ) {
+                //    saleDetail.setIdDetalleVenta(null);
+                // } else {
+                //    saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
+                // }
+                // saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
                 saleDetail.setProduct(product);
                 saleDetail.setSale(savedSale);
                 saleDetail.setPrecio(elementDetail.getPrecio());
@@ -71,7 +68,7 @@ public class SaleService {
                 inventoryRepository.save(inventory);
 
                 // Guarda el detalle de venta
-                 SaleDetail newSaleDetail =  saleDetailRepository.save(saleDetail);
+                SaleDetail newSaleDetail =  saleDetailRepository.save(saleDetail);
                 savedSaleDetail.add( newSaleDetail );
             }
         }

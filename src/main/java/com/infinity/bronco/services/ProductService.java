@@ -40,20 +40,22 @@ public class ProductService {
             product.setIdProducto(null);
         }
         try {
+            if(product.getImagen()!="") {
+                String base64Image = product.getImagen().split(",")[1];
+                System.out.println(base64Image);
+                if (base64Image != "") {
+                    byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 
-            String base64Image = product.getImagen().split(",")[1];
+                    String imageName = "imagen_" + System.currentTimeMillis() + ".jpg";
 
-            byte[] imageBytes = Base64.getDecoder().decode(base64Image);
+                    File file = new File(uploadDir + File.separator + imageName);
+                    file.createNewFile();
 
-            String imageName = "imagen_" + System.currentTimeMillis() + ".jpg";
+                    FileUtils.writeByteArrayToFile(file, imageBytes);
 
-            File file = new File(uploadDir + File.separator + imageName);
-            file.createNewFile();
-
-            FileUtils.writeByteArrayToFile(file, imageBytes);
-
-            product.setImagen( imageName );
-
+                    product.setImagen(imageName);
+                }
+            }
             return productRepository.save( product );
 
         } catch ( IOException e ) {
