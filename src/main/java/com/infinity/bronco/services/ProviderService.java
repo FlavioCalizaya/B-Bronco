@@ -3,9 +3,9 @@ package com.infinity.bronco.services;
 import com.infinity.bronco.models.Provider;
 import com.infinity.bronco.repositories.ProviderRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -15,8 +15,8 @@ public class ProviderService {
 
     private final ProviderRepository providerRepository;
 
-   public Iterable<Provider> getProviders() {
-        return providerRepository.findByState(1);
+    public Iterable<Provider> getProviders() {
+        return providerRepository.findAll();
     }
 
     public Optional<Provider> getProviderById(Long id) {
@@ -38,18 +38,14 @@ public class ProviderService {
         updateProvider.setAddress(provider.getAddress());
         updateProvider.setBusinessName(provider.getBusinessName());
         updateProvider.setPhoneNumber(provider.getPhoneNumber());
-        updateProvider.setUpdatedAt(LocalDateTime.now());
 
         providerRepository.save(updateProvider);
 
         return providerRepository.save(updateProvider);
     }
 
-    public Provider deleteProvider(Long id) {
-        Provider removeProvider = providerRepository.findById(id)
-                .orElseThrow();
-        removeProvider.setState((byte) 0);
-        providerRepository.save(removeProvider);
-        return providerRepository.save(removeProvider);
+    public String deleteProvider(Long id) {
+       providerRepository.deleteById(id);
+       return "Provider deleted";
     }
 }
