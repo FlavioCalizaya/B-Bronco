@@ -27,10 +27,6 @@ public class SaleController {
     public ResponseEntity<Sale> crearVentaConDetalles(@RequestBody SaleDTO ventaDTO) {
        Sale sale =  saleService.saveSale(ventaDTO);
         return ResponseEntity.ok( sale );
-    }
-    @PutMapping( path = "/remove/{id}")
-    public ResponseEntity<Sale> removeSale( @PathVariable Integer id) {
-        Sale updated = saleService.removeSale(id);
-        return ResponseEntity.ok(updated);
+
     }
 }

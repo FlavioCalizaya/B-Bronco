@@ -38,8 +38,4 @@ public class SaleDetail {
     @ManyToOne
     @JoinColumn(name="idProducto", nullable=false)
     private Product product;
-
-    @ManyToOne
-    @JoinColumn(name="idInventario", nullable=false)
-    private Inventory inventory;
 }

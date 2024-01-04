@@ -38,11 +38,8 @@ public class Sale {
     @Column(name = "nro_correlativo")
     private Integer nroCorrelativo;
 
+
     @OneToMany(mappedBy="sale")
     private List<SaleDetail> saleDetails;
-
-    @ManyToOne
-    @JoinColumn(name="idCliente", nullable=false)
-    private Client client;
 
 }
