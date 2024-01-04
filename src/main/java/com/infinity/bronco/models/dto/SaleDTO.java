@@ -11,6 +11,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class SaleDTO {
-    private Sale sale;  // Datos de la venta
-    private List<SaleDetailDTO> saleDetails;  // Detalles de la venta
+    private Sale sale;
+    private List<SaleDetailDTO> saleDetails;
 }

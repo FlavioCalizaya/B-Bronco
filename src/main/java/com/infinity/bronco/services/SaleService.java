@@ -46,12 +46,12 @@ public class SaleService {
                 // Crear un nuevo SaleDetail
                 SaleDetail saleDetail = new SaleDetail();
 
-                if ( saleDetailRepository.existsById( elementDetail.getIdDetalleVenta() )  ) {
-                    saleDetail.setIdDetalleVenta(null);
-                } else {
-                    saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
-                }
-                saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
+                // if ( saleDetailRepository.existsById( elementDetail.getIdDetalleVenta() )  ) {
+                //    saleDetail.setIdDetalleVenta(null);
+                // } else {
+                //    saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
+                // }
+                // saleDetail.setIdDetalleVenta(elementDetail.getIdDetalleVenta());
                 saleDetail.setProduct(product);
                 saleDetail.setSale(savedSale);
                 saleDetail.setPrecio(elementDetail.getPrecio());
@@ -59,7 +59,7 @@ public class SaleService {
                 saleDetail.setImporte(elementDetail.getImporte());
 
                 // Guarda el detalle de venta
-                 SaleDetail newSaleDetail =  saleDetailRepository.save(saleDetail);
+                SaleDetail newSaleDetail =  saleDetailRepository.save(saleDetail);
                 savedSaleDetail.add( newSaleDetail );
             }
         }
