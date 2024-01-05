@@ -62,5 +62,4 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-
 }

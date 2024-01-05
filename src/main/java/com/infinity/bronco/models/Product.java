@@ -19,7 +19,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idProducto;
-    private Integer categoria;
+    private String categoria;
     private String codigo;
     private String imagen;
     private String nombreProducto;
