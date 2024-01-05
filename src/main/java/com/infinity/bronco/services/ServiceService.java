@@ -6,6 +6,7 @@ import com.infinity.bronco.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class ServiceService {
 
     public Servicey saveServicey(Servicey servicey) {
         if (serviceRepository.existsById(servicey.getId())) servicey.setId(null);
+        if(servicey.getCreatedAtt()==null) servicey.setCreatedAtt(LocalDateTime.now());
         return serviceRepository.save(servicey);
     }
 
