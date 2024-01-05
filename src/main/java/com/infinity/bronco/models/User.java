@@ -50,8 +50,8 @@ public class User {
     private List<Servicey> services;
 
 
-    @OneToMany(mappedBy = "user")
+   /* @OneToMany(mappedBy = "user")
     @JsonIgnore
-    private List<Servicey> service;
+    private List<Servicey> service;*/
 
 }

@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -25,7 +29,7 @@ public class Servicey {
 
     private Double amount;
 
-    //private Integer idUser;
+    private Integer idUser;
 
     private Integer estado;
 
@@ -37,6 +41,13 @@ public class Servicey {
 
     private Date dateEnd;
 
+
+    @Column(name = "created_att",columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime createdAtt;
+
+
+
+
     @ManyToOne
     @JoinColumn(name = "id_client")
     private Client client;
@@ -46,7 +57,7 @@ public class Servicey {
     private User assignedMaintenanceUser;
 
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "id_user")
-    private User user;
+    private User user;*/
 }
