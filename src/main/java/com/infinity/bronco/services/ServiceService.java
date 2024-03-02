@@ -4,7 +4,10 @@ import com.infinity.bronco.models.Servicey;
 import com.infinity.bronco.repositories.ServiceRepository;
 import com.infinity.bronco.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -35,20 +38,24 @@ public class ServiceService {
     public Servicey updateServiceysById(Integer id, Servicey servicey){
         Servicey updateServicey = serviceRepository.findById(id).orElseThrow();
 
+        updateServicey.setClient(servicey.getClient());
         updateServicey.setAmount(servicey.getAmount());
         updateServicey.setServiceType(servicey.getServiceType());
         updateServicey.setDescription(servicey.getDescription());
         updateServicey.setStatusMaintenance(servicey.getStatusMaintenance());
         updateServicey.setDateInit(servicey.getDateInit());
         updateServicey.setDateEnd(servicey.getDateEnd());
+        updateServicey.setAssignedMaintenanceUser(servicey.getAssignedMaintenanceUser());
 
         serviceRepository.save(updateServicey);
 
         return serviceRepository.save(updateServicey);
     }
-    public String deleteServicey(Integer id) {
+
+    public Servicey deleteServicey(Integer id) {
+        Servicey serviceyToDelete = serviceRepository.findById(id).get();
         serviceRepository.deleteById(id);
-        return "Servicey deleted";
+        return serviceyToDelete;
     }
 
     public Iterable<Servicey> getAllServiceMant(Integer assignedMaintenanceUser) {
