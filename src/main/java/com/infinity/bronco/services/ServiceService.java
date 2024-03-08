@@ -45,7 +45,7 @@ public class ServiceService {
         updateServicey.setStatusMaintenance(servicey.getStatusMaintenance());
         updateServicey.setDateInit(servicey.getDateInit());
         updateServicey.setDateEnd(servicey.getDateEnd());
-        updateServicey.setAssignedMaintenanceUser(servicey.getAssignedMaintenanceUser());
+        // updateServicey.setAssignedMaintenanceUser(servicey.getAssignedMaintenanceUser());
 
         serviceRepository.save(updateServicey);
 
