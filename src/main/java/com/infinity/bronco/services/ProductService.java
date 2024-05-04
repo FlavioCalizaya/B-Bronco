@@ -42,17 +42,16 @@ public class ProductService {
         try {
             if(product.getImagen()!="") {
                 String base64Image = product.getImagen().split(",")[1];
-                System.out.println(base64Image);
+                System.out.println("imagen a guardar: "+base64Image);
                 if (base64Image != "") {
                     byte[] imageBytes = Base64.getDecoder().decode(base64Image);
 
                     String imageName = "imagen_" + System.currentTimeMillis() + ".jpg";
-
+                    System.out.println("nombre de imagen"+ imageName);
                     File file = new File(uploadDir + File.separator + imageName);
                     file.createNewFile();
 
                     FileUtils.writeByteArrayToFile(file, imageBytes);
-
                     product.setImagen(imageName);
                 }
             }

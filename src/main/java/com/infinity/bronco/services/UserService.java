@@ -71,9 +71,9 @@ public class UserService {
             userToUpdate.setCi(updatedUser.getCi());
             userToUpdate.setRol(updatedUser.getRol());
 
-            userToUpdate.setNameUser(updatedUser.getNameUser());
-            String hashedPassword = BCrypt.hashpw(updatedUser.getPassword(), BCrypt.gensalt());
-            userToUpdate.setPassword(hashedPassword);
+        //    userToUpdate.setNameUser(updatedUser.getNameUser());
+      //      String hashedPassword = BCrypt.hashpw(updatedUser.getPassword(), BCrypt.gensalt());
+         //    userToUpdate.setPassword(hashedPassword);
 
             return userRepository.save(userToUpdate);
         } else {
