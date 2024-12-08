@@ -19,7 +19,7 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nit_ci", unique = true, length = 12)
+    @Column(name = "nit_ci", unique = true, length = 13)
     private String nitCi;
 
     @Column(name = "business_name", length = 40)

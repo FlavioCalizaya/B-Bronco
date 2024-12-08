@@ -27,7 +27,7 @@ public class User {
     private String segundoApellido;
 
     @Column(unique = true, nullable = false)
-    private Integer ci;
+    private Long ci;
     private Integer estado = 1;
 
     @Column(nullable = false)
